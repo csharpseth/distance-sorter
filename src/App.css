@@ -109,6 +109,12 @@ polyline {
 
 
 .nav {
+	display: flex;
+	flex-direction: row;
+
+	justify-content: center;
+	align-items: flex-end;
+
 	background-color: rgba(239, 239, 239, 1);
 	border-bottom: 1pt solid rgb(205, 205, 205);
 
@@ -125,4 +131,13 @@ polyline {
 	font-size: 2.5rem;
 	padding: 0;
 	margin: 0;
+}
+
+.nav span {
+	padding: 0;
+	margin: 0;
+
+	position: absolute;
+
+	right: 10pt;
 }

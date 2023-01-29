@@ -1,5 +1,5 @@
 import { log } from 'console';
-import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef, ReactComponentElement } from 'react';
 import './App.css';
 
 class Coord {
@@ -26,7 +26,7 @@ function App() {
 
 	const [linesToOrigin, setLinesToOrigin] = useState<boolean>()
 
-	const placementArea = useRef(null)
+	const placementArea = useRef<HTMLDivElement>(null)
 
 	const [canPlace, setCanPlace] = useState<boolean>(false)
 	var place = useRef<boolean>()
@@ -39,6 +39,12 @@ function App() {
 		window.addEventListener('mousemove', HandleMousePosition)
 		window.addEventListener('mousedown', HandleMouseClick)
 		//const holder: any = setInterval(() => InsertionSort(dists.current), 200)
+		if(placementArea.current) {
+			const x = (placementArea.current.offsetWidth / 2) + placementArea.current.offsetLeft
+			const y = (placementArea.current.offsetHeight / 2) + placementArea.current.offsetTop
+			setOrigin(new Coord(x, y))
+		}
+
 
 		return () => {
 			window.removeEventListener('mousemove', HandleMousePosition)
@@ -187,8 +193,11 @@ function App() {
 
 	return (
 		<div className="App">
-			<div className='nav'><h1>Point Distance Sorter 9000</h1></div>
-			<div id='placementArea' onMouseEnter={() => setCanPlace(true)} onMouseLeave={() => setCanPlace(false)}>
+			<div className='nav'>
+				<h1>Point Distance Sorter 9000</h1>
+				<span>By: Seth Hamm</span>
+			</div>
+			<div id='placementArea' ref={placementArea} onMouseEnter={() => setCanPlace(true)} onMouseLeave={() => setCanPlace(false)}>
 				{origin ? <div className='point' id='origin' style={{ left: `${origin.x}px`, top: `${origin.y}px` }}>
 				X
 				</div>:''}
