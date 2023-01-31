@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/distance-sorter/static/css/main.2cdabd78.css",
+    "main.js": "/distance-sorter/static/js/main.8eea1dbf.js",
+    "static/media/grid.png": "/distance-sorter/static/media/grid.f7a3208d175a3dd55ddc.png",
+    "index.html": "/distance-sorter/index.html",
+    "main.2cdabd78.css.map": "/distance-sorter/static/css/main.2cdabd78.css.map",
+    "main.8eea1dbf.js.map": "/distance-sorter/static/js/main.8eea1dbf.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2cdabd78.css",
+    "static/js/main.8eea1dbf.js"
+  ]
+}
