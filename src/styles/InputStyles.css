@@ -1,0 +1,132 @@
+.input-container {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.checkbox {
+    position: relative;
+    border: 1pt solid var(--fieldBorderColor);
+    border-radius: 4px;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background: none;
+
+    cursor: pointer;
+}
+
+.checkbox-title {
+    color: black;
+
+    text-align: center;
+
+    font-size: 14px;
+    font-weight: 300;
+
+    margin-left: 4px;
+}
+
+.checkbox .check {
+    z-index: 1;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.checkbox-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--fieldBackgroundColor);
+
+    z-index: 0;
+}
+
+.checkbox:hover .checkbox-background {
+    filter: brightness(90%);
+}
+
+#checkbox-checked {
+    background-color: var(--checkboxCheckedColor);
+}
+
+#checkboxDark {
+    border-color: var(--borderColorDark);
+}
+
+#checkboxDark:hover .checkbox-backgroundDark {
+    filter: brightness(200%);
+}
+
+.checkbox-backgroundDark {
+    background-color: var(--foregroundColorDark);
+}
+
+.toggleButton {
+    width: 24pt;
+    height: 12pt;
+
+    border: 1pt solid var(--fieldBorderColor);
+    background-color: var(--backgroundColor);
+    border-radius: 15pt;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.toggleButtonIndicator {
+    width: 12pt;
+    height: 12pt;
+    background-color: var(--checkboxCheckedColor);
+    border-radius: 10pt;
+    transform: translateX(0);
+    transition: 400ms;
+}
+
+#toggleOn {
+    transform: translateX(100%);
+}
+
+.toggleButtonDark {
+    background-color: var(--backgroundColorDark);
+    border-color: var(--borderColorDark);
+}
+
+@media only screen and (max-width: 730px) {
+    .checkbox {
+        border: 2pt solid var(--fieldBorderColor);
+        border-radius: 8px;
+        width: 24px;
+        height: 24px;
+    }
+
+    #checkboxDark:hover .checkbox-backgroundDark {
+        filter: brightness(100%);
+    }
+    
+    .checkbox-title {
+        font-weight: 400;
+    }
+    
+    .checkbox .check {
+        z-index: 1;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 800;
+    }
+}
