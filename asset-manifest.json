@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/react-point-distance-sorter/static/css/main.90838fcb.css",
-    "main.js": "/react-point-distance-sorter/static/js/main.35598be1.js",
+    "main.css": "/react-point-distance-sorter/static/css/main.d70c00e7.css",
+    "main.js": "/react-point-distance-sorter/static/js/main.fcea7675.js",
     "static/media/grid.png": "/react-point-distance-sorter/static/media/grid.f7a3208d175a3dd55ddc.png",
     "index.html": "/react-point-distance-sorter/index.html",
-    "main.90838fcb.css.map": "/react-point-distance-sorter/static/css/main.90838fcb.css.map",
-    "main.35598be1.js.map": "/react-point-distance-sorter/static/js/main.35598be1.js.map"
+    "main.d70c00e7.css.map": "/react-point-distance-sorter/static/css/main.d70c00e7.css.map",
+    "main.fcea7675.js.map": "/react-point-distance-sorter/static/js/main.fcea7675.js.map"
   },
   "entrypoints": [
-    "static/css/main.90838fcb.css",
-    "static/js/main.35598be1.js"
+    "static/css/main.d70c00e7.css",
+    "static/js/main.fcea7675.js"
   ]
 }
