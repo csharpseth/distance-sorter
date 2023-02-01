@@ -4,7 +4,7 @@ export const ThemeContext = createContext({} as any)
 
 export function ThemeProvider(props: any) {
 
-    const [darkMode, setDarkMode] = useState<boolean>(true)
+    const [darkMode, setDarkMode] = useState<boolean>(false)
 	const [width, setWidth] = useState<number>(window.innerWidth)
 	const [isMobile, setIsMobile] = useState<boolean>(width <= 768)
 

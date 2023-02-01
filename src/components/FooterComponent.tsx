@@ -8,6 +8,7 @@ export default function FooterComponent(props: any) {
 
     return (
         <footer id={darkMode ? 'dark':''}>
+			<h3>Links</h3>
 			<div className='additionalInfo'>
 				<a target='_blank' href="https://www.linkedin.com/in/sethhamm/">Linkedin</a>
 				<a target='_blank' href="https://github.com/csharpseth">GitHub</a>

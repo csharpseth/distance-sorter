@@ -1,22 +1,22 @@
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import './App.css';
 import FooterComponent from './components/FooterComponent';
 import HeaderComponent from './components/HeaderComponent';
-import { Checkbox, DropDownMenu } from './components/InputComponents';
+import { DropDownMenu } from './components/InputComponents';
 import { DataContext } from './contexts/DataContext';
 import { ThemeContext } from './contexts/ThemeContext';
+import { GetSortingTypeData, SortTypeData } from './helpers/SortingTypeData';
 import { AcknowledgementType, DrawType, SortType } from './ts/enums';
 
 function App() {
-	
-	
-	const placementArea = useRef<HTMLDivElement>(null)
+	const [sortData, setSortData] = useState<SortTypeData>()
+
 	const { darkMode, isMobile } = useContext(ThemeContext)
 	const {
 		positions,
 		origin,
 		order,
-		Initialize,
+		placementArea,
 		Clear,
 		GetCoordString,
 		GetRelativeDistance,
@@ -25,10 +25,13 @@ function App() {
 		setUseFastDistance
 	} = useContext(DataContext)
 	
+	function GetPointColorString(val: number):string {
+		return `rgba(${Math.round(GetRelativeDistance(val) * 255 + 50)}, ${Math.round((1 - GetRelativeDistance(val)) * 190 + 20)}, 0, 1)`
+	}
 
 	useEffect(() => {
-		Initialize(placementArea.current?.offsetLeft, placementArea.current?.offsetTop, placementArea.current?.offsetWidth, placementArea.current?.offsetHeight)
-	}, [placementArea])
+		setSortData(GetSortingTypeData(SortType.INSERSTION_SORT))
+	}, [])
 
 	return (
 		<>
@@ -83,7 +86,7 @@ function App() {
 							style={{
 								left: `${positions[index].x}px`,
 								top: `${positions[index].y}px`,
-								backgroundColor: `rgba(${Math.round(GetRelativeDistance(index) * 255 + 50)}, ${Math.round((1 - GetRelativeDistance(index)) * 190 + 20)}, 0)`
+								backgroundColor: GetPointColorString(index)
 							}}>
 							{ind}
 							</div>
@@ -94,7 +97,7 @@ function App() {
 						<polyline
 							key={val}
 							style={{
-								stroke: `rgba(${Math.round(GetRelativeDistance(val) * 255 + 50)}, ${Math.round((1 - GetRelativeDistance(val)) * 190 + 20)}, 0, 1)`
+								stroke: GetPointColorString(val)
 							}}
 							points={GetCoordString(index, index-1)}
 						/>
@@ -114,6 +117,7 @@ function App() {
 				options={Object.values(SortType)}
 				onChange={(val: string) => {
 					SetSortType(val)
+					setSortData(GetSortingTypeData(val))
 				}} />
 				<DropDownMenu
 				title='Use Fast Distance'
@@ -122,11 +126,18 @@ function App() {
 					setUseFastDistance(val === 'Yes')
 				}} />
 			</div>
+			
+			{sortData ?
+			<div className="aboutSection sortDataSection" id={darkMode ? 'darkModeFont':''}>
+			<h2>{sortData.title}</h2>
+			<p>{sortData.body}</p>
+			</div>	
+			:''}	
 
 			<div className="aboutSection" id={darkMode ? 'darkModeFont':''}>
-			<h2>About</h2>
+			<h2>About This Page</h2>
 			<p>
-				Welcome to my demonstration of different sorting algorithm implementations. You can choose between various sorting algorithms to visualize the closest points to a specified origin. You simply plot as many points as you want, then select the sorting algorithm that works best for you to quickly find and visualize the nearest points. This site offers a convenient way for you to learn and understand how different sorting algorithms work in finding the closest points to an origin.
+				This is my demonstration of different sorting algorithm implementations. You can choose between various sorting algorithms to visualize the closest points to a specified origin. You simply plot as many points as you want, then select a sorting algorithm to quickly find and visualize the nearest points. This site offers a convenient way for you to learn and understand how different sorting algorithms work in finding the closest points to an origin. You can find the source code <a target='_blank' href="https://github.com/csharpseth/react-point-distance-sorter">Here</a>.
 			</p>
 			</div>
 

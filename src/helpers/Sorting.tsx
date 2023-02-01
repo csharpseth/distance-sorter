@@ -63,7 +63,39 @@ const BubbleSort = (distances: number[]) => {
     return order
 }
 
+const SelectionSort = (distances: number[]) => {
+    let order: number[] = []
+    for (let i = 0; i < distances.length; i++) { order.push(i) }
+
+    if(order.length < 2) return order
+
+    function Swap(indexA: number, indexB: number) {
+        if(indexA === indexB) return
+
+        let temp: number = order[indexA]
+
+        order[indexA] = order[indexB]
+        order[indexB] = temp
+    }
+
+    const length = order.length
+
+    for (let i = 0; i < length-1; i++) {
+
+        let minIndex = i
+        for (let j = i+1; j < length; j++) {
+            if(distances[order[j]] < distances[order[minIndex]])
+                minIndex = j
+        }
+
+        Swap(minIndex, i)
+    }
+
+    return order
+}
+
 export {
     InsertionSort,
-    BubbleSort
+    BubbleSort,
+    SelectionSort
 }

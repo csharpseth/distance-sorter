@@ -5,7 +5,8 @@ export enum DrawType {
 
 export enum SortType {
     INSERSTION_SORT = 'Insertion',
-    BUBBLE_SORT = 'Bubble'
+    BUBBLE_SORT = 'Bubble',
+    SELECTION_SORT = 'Selection'
 }
 
 export enum AcknowledgementType {

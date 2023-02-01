@@ -5,6 +5,8 @@
 	--borderColor: #d0d0d0;
 
 	--fontColor: #111111;
+	--fontColorFaint: rgb(89, 89, 89);
+	--fontColorHeaderFaint: rgb(47, 47, 47);
 
 	--areaBorderColor: #225582;
 
@@ -14,7 +16,7 @@
     --checkboxCheckedColor: #2474e0;
     --checkboxCheckmarkColor: #FFFFFF;
 
-
+	--linkColor: #2f88d6;
 
 	--backgroundColorDark: #111111;
 	--foregroundColorDark: #222222;
@@ -61,6 +63,7 @@ body {
 
 	padding: 0;
 	margin: 0;
+	padding-bottom: 30pt;
 
 	overflow-x: hidden;
 
@@ -101,6 +104,19 @@ body {
 
 .App p span {
 	margin: 8px;
+}
+
+.App a {
+	color: var(--linkColor);
+	text-decoration: underline;
+	border-bottom: 1px solid transparent;
+	padding: 0;
+
+	box-sizing: border-box;
+}
+
+.App a:hover {
+	filter: brightness(120%);
 }
 
 .info {
@@ -216,11 +232,6 @@ polyline {
 	transition: 50ms;
 }
 
-#closest {
-	
-}
-
-
 header {
 	display: flex;
 	flex-direction: row;
@@ -246,6 +257,20 @@ header {
 header .darkModeToggle {
 	position: absolute;
 	right: 10pt;
+
+	display: flex;
+	flex-direction: column;
+
+	justify-content: center;
+	align-items: center;
+}
+
+header .darkModeToggle span {
+	position: absolute;
+	font-size: 12px;
+
+	margin-top: 4px;
+	transform: translateY(100%);
 }
 
 header img {
@@ -311,6 +336,10 @@ header h1 {
 	filter: drop-shadow(0 0 0 rgba(10, 10, 10, 0));
 }
 
+.sortDataSection {
+	min-height: 200pt;
+}
+
 .aboutSection {
 	display: flex;
 	flex-direction: column;
@@ -320,8 +349,9 @@ header h1 {
 	width: 90%;
 	max-width: 1280px;
 
+	flex: 1;
+
 	padding: 8px;
-	margin-top: 50pt;
 }
 
 .aboutSection h2 {
@@ -337,6 +367,8 @@ header h1 {
 }
 
 footer {
+	position: relative;
+
 	display: flex;
 	flex-direction: column;
 
@@ -348,6 +380,7 @@ footer {
 
 	width: 100%;
 	padding: 16px;
+	padding-bottom: 24px;
 
 	box-sizing: border-box;
 
@@ -361,27 +394,39 @@ footer .additionalInfo {
 	justify-content: center;
 	align-items: center;
 
-	margin: 2px;
+	margin: 0;
 	
 	font-weight: 400;
+
+	gap: 8px;
+}
+
+footer h3 {
+	padding: 0;
+	margin: 0;
+
+	opacity: 0.6;
+	font-weight: 400;
+	font-size: 24px;
+}
+
+footer h3::after {
+	content: ':';
 }
 
 footer a {
-	margin: 4px;
-	margin-top: 0;
+	margin: 0;
 	padding: 0;
 	text-decoration: none;
 
-	border-bottom: 2px solid transparent;
-
-	color: #2f88d6;
+	color: var(--linkColor);
 
 	box-sizing: border-box;
 }
 
 footer a:hover {
 	filter: brightness(75%);
-	border-color: #2f88d6;;
+	text-decoration: underline;
 }
 
 footer span {
@@ -391,7 +436,11 @@ footer span {
 	font-weight: 300;
 	font-size: 16px;
 
-	color: rgb(89, 89, 89);
+	opacity: 0.3;
+
+	position: absolute;
+	right: 8px;
+	bottom: 8px;
 }
 
 #darkBackground {
@@ -445,10 +494,14 @@ footer span {
 		font-size: 0.8rem;
 	}
 
-	#placementArea {
+	header .darkModeToggle span {
+		font-size: 10px;
+	}
+
+	.placementArea {
 		position: relative;
-		width: 95%;
-		height: 250pt;
+		width: 95vw;
+		height: 95vw;
 	
 		background-size: 120px;
 	}
@@ -495,8 +548,16 @@ footer span {
 	}
 
 	footer {
-		position: static;
+		padding: 8px;
+	}
 
-		bottom: 0;
+	footer h3 {
+		font-size: 20px;
+	}
+
+	footer span {
+		margin-top: 24px;
+		position: inherit;
+		font-size: 12px;
 	}
 }

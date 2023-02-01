@@ -11,12 +11,14 @@ export default function HeaderComponent(props: any) {
         <header id={darkMode ? 'dark':''}>
             <img src="https://csharpseth.github.io/react-point-distance-sorter/logo.png" alt="" />
             <h1>Distance Sorter 9000</h1>
+            <div className='darkModeToggle'>
             <ToggleButton
-                className='darkModeToggle'
                 darkMode={darkMode}
                 value={darkMode}
                 onChange={(val: boolean) => ToggleDarkMode(val)}
             />
+            <span>{darkMode ? 'Dark':'Light'}</span>
+            </div>
         </header>
     )
 }

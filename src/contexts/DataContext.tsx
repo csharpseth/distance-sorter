@@ -1,6 +1,6 @@
 
 import { createContext, useState, useEffect, useRef, useContext } from 'react';
-import { BubbleSort, InsertionSort } from '../helpers/Sorting';
+import { BubbleSort, InsertionSort, SelectionSort } from '../helpers/Sorting';
 import { DrawType, SortType } from '../ts/enums';
 import { ThemeContext } from './ThemeContext';
 
@@ -42,7 +42,6 @@ export function DataProvider(props: any) {
 	const [linesToOrigin, setLinesToOrigin] = useState<boolean>(false)
 	const [useFastDistance, setUseFastDistance] = useState<boolean>(true);
 
-    const [placementArea, setPlacementArea] = useState<Area>(new Area(0, 0, 0, 0))
     const [type, setType] = useState<SortType>(SortType.INSERSTION_SORT)
 
     var sortType = useRef<SortType>()
@@ -51,43 +50,42 @@ export function DataProvider(props: any) {
     var dists = useRef<number[]>([])
 	dists.current = distances
 
-    var area = useRef<Area>()
-    area.current = placementArea
+    const placementArea = useRef<HTMLDivElement>()
 
     const areaPadding = { left: 10, right: 10, top: 10, bottom: 10 }
     const safeArea: Area = new Area(0, 0, 70, 50)
 
     const { isMobile } = useContext(ThemeContext)
 
-    const Initialize = (x: number, y: number, width: number, height: number) => {
-        setPlacementArea(new Area(x, y, width, height))
-        setPlacementArea((curr: Area) => {
-            area.current = curr
-            ResetOrigin()
-            return curr
-        })
-    }
-
     const ResetOrigin = () => {
-		if(!area.current) return
+		if(!placementArea.current) return
         
-		const x = (area.current.width / 2)
-		const y = (area.current.height / 2)
+		const x = (placementArea.current.offsetWidth / 2)
+		const y = (placementArea.current.offsetHeight / 2)
 
 		setOrigin({x, y})
 	}
 
     const CanPlace = (x: number, y: number):boolean => {
-        if(!area.current) return false
+        if(!placementArea.current) return false
         
         if(x >= safeArea.position.x && x <= safeArea.position.x + safeArea.width) {
             if(y >= safeArea.position.y && y <= safeArea.position.y + safeArea.height) {
+                if(isMobile) {
+                    Clear()
+                }
                 return false
             }
         }
 
-        const place = 
-            (x > areaPadding.left && y > areaPadding.top && x < area.current.width - areaPadding.right && y < area.current.height - areaPadding.bottom)
+        const place = (
+            x > areaPadding.left
+            &&
+            y > areaPadding.top
+            &&
+            x < placementArea.current.offsetWidth - areaPadding.right
+            &&
+            y < placementArea.current.offsetHeight - areaPadding.bottom)
 
         return place
     }
@@ -100,16 +98,16 @@ export function DataProvider(props: any) {
 	}
 
 	const ConvertToLocalSpace = (x: number, y: number) => {
-		if(!area.current) return { x: 0, y: 0 }
+		if(!placementArea.current) return { x: 0, y: 0 }
 
-		const newX = x-area.current.position.x
-		const newY = y-area.current.position.y
+		const newX = x-placementArea.current.offsetLeft
+		const newY = y-placementArea.current.offsetTop
 
 		return { x: newX, y: newY }
 	}
 
 	const AddPosition = (x: number, y: number) => {
-		if(!area.current) return
+		if(!placementArea.current) return
 		if(!CanPlace(x, y)) return
 
 		setPositions(prev => {
@@ -261,22 +259,36 @@ export function DataProvider(props: any) {
                 return InsertionSort(dists.current)
             case SortType.BUBBLE_SORT:
                 return BubbleSort(dists.current)
+            case SortType.SELECTION_SORT:
+                return SelectionSort(dists.current)
             default:
                 return []
         }
     }
 
     useEffect(() => {
-		window.addEventListener('mousedown', HandleMouseClick)
-		window.addEventListener('touchstart', HandleTouchStart)
+		// window.addEventListener('mousedown', HandleMouseClick)
+		// window.addEventListener('touchstart', HandleTouchStart)
 
-		ResetOrigin()
+		
 
-		return () => {
-			window.removeEventListener('mousedown', HandleMouseClick)
-			window.removeEventListener('touchstart', HandleTouchStart)
-		}
-	}, [])
+		// return () => {
+		// 	window.removeEventListener('mousedown', HandleMouseClick)
+		// 	window.removeEventListener('touchstart', HandleTouchStart)
+		// }
+
+        if(placementArea && placementArea.current) {
+            placementArea.current.addEventListener('mousedown', HandleMouseClick)
+            placementArea.current.addEventListener('touchstart', HandleTouchStart)
+
+            ResetOrigin()
+
+            return () => {
+                placementArea.current?.removeEventListener('mousedown', HandleMouseClick)
+                placementArea.current?.removeEventListener('touchstart', HandleTouchStart)
+            }
+        }
+	}, [placementArea.current])
 
 	useEffect(() => {
 		if(origin) FindClosest(positions, origin)
@@ -292,7 +304,8 @@ export function DataProvider(props: any) {
             origin,
             distances,
             order,
-            Initialize,
+            placementArea,
+            type,
             Clear,
             GetCoordString,
             GetRelativeDistance,
