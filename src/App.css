@@ -20,6 +20,8 @@
 	--foregroundColorDark: #222222;
 
 	--borderColorDark: #000000;
+	--fieldBorderColorDark: #444444;
+	--fieldBackgroundColorDark: #222222;
 
 	--fontColorDark: #EEEEEE;
 
@@ -70,6 +72,15 @@ body {
 	min-height: 100vh;
 
 	box-sizing: border-box;
+}
+
+.NoSelect {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .FadeIn {
@@ -431,6 +442,21 @@ footer span {
 		font-size: 16px;
 	}
 
+	.options {
+		margin: 8px;
+	
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	
+		justify-content: center;
+		align-items: center;
+	
+		width: 80%;
+	
+		gap: 12px;
+	}
+
 	.info {
 		display: flex;
 		flex-direction: row;
@@ -444,9 +470,8 @@ footer span {
 	}
 
 	footer {
-		position: absolute;
+		position: static;
 
 		bottom: 0;
-		transform: translateY(100%);
 	}
 }

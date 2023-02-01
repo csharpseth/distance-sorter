@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useContext } from 'react';
+import { ThemeContext } from '../contexts/ThemeContext';
 import '../styles/InputStyles.css';
 
 function Checkbox(props: any) {
-    
-    const { title, value, darkMode, mobile, onChange } = props
+    const { title, value, mobile, onChange } = props
 
     const [ internalValue, setInternalValue ] = useState<boolean>(false)
+
+    const { darkMode } = useContext(ThemeContext)
 
     function OnClick() {
         if(onChange) {
@@ -36,7 +38,10 @@ function Checkbox(props: any) {
 function ToggleButton(props: any) {
     const [toggle, setToggle] = useState<boolean>(false)
 
-    const { className, darkMode, id, value, onChange } = props
+    const { className, id, value, onChange } = props
+
+    const { darkMode } = useContext(ThemeContext)
+
 
     function Toggle() {
 
@@ -63,7 +68,44 @@ function ToggleButton(props: any) {
     );
 }
 
+function DropDownMenu(props: any) {
+    const { value, title, options, onChange } = props
+
+    const { darkMode } = useContext(ThemeContext)
+
+    const [menuOpen, setMenuOpen] = useState(false)
+    const [internalValue, setInternalValue] = useState<string>(options[0])
+
+    function SetSelection(val: string) {
+        if(onChange) onChange(val)
+        if(value === undefined) setInternalValue(val)
+
+        setMenuOpen(false)
+    }
+
+    return (
+        <div className='dropDownMenuField' id={darkMode ? 'darkModeFont' : ''}>
+            <h3>{title}</h3>
+            
+            <div className='dropDownFieldContainer'>
+            <div className={menuOpen ? 'dropDownMenu dropDownMenuOpen' : 'dropDownMenu dropDownMenuClose'} id={darkMode ? 'darkDropDownMenu' : ''}>
+                {options.map((opt: string, index: number) => <span key={index} className='selectionElement NoSelect' id={darkMode ? 'dark' : ''} onClick={() => SetSelection(opt)}>{opt}</span>)}
+            </div>
+            <span className='selectionText NoSelect' id={darkMode ? 'darkModeFont' : ''}>{value ? value : internalValue}</span>
+            <span className={menuOpen ? 'dropDownIcon NoSelect dropDownIconOpen' : 'dropDownIcon NoSelect'} id={darkMode ? 'darkDropDownIcon':''}>^</span>
+            <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                onBlur={() => setTimeout(() => setMenuOpen(false), 50)}
+                className='dropDownMenuFieldBackground'
+                id={darkMode ? 'darkFieldBackground' : ''}
+            />
+            </div>
+        </div>
+    );
+}
+
 export {
     Checkbox,
-    ToggleButton
+    ToggleButton,
+    DropDownMenu
 }
