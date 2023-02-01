@@ -95,7 +95,7 @@ function DropDownMenu(props: any) {
             <span className={menuOpen ? 'dropDownIcon NoSelect dropDownIconOpen' : 'dropDownIcon NoSelect'} id={darkMode ? 'darkDropDownIcon':''}>^</span>
             <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                onBlur={() => setTimeout(() => setMenuOpen(false), 50)}
+                onBlur={() => setTimeout(() => setMenuOpen(false), 120)}
                 className='dropDownMenuFieldBackground'
                 id={darkMode ? 'darkFieldBackground' : ''}
             />

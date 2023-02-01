@@ -23,7 +23,7 @@
 	--fieldBorderColorDark: #444444;
 	--fieldBackgroundColorDark: #222222;
 
-	--fontColorDark: #EEEEEE;
+	--fontColorDark: #dddddd;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -33,7 +33,7 @@
 }
 
 * {
-	transition: none;
+	transition: 200ms;
 	font-family: 'Oswald', sans-serif;
 }
 
@@ -161,7 +161,7 @@ body {
 	transition: none;
 }
 
-#placementArea {
+.placementArea {
 	position: relative;
 	width: 90%;
 	height: 400pt;
@@ -176,6 +176,10 @@ body {
 	background-repeat: repeat;
 	background-size: 60px;
 	filter: drop-shadow(0 0 2px rgba(10, 10, 10, 0.45))
+}
+
+#placementAreaDark {
+	filter: brightness(90%);
 }
 
 .debug {
@@ -307,6 +311,31 @@ header h1 {
 	filter: drop-shadow(0 0 0 rgba(10, 10, 10, 0));
 }
 
+.aboutSection {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+	width: 90%;
+	max-width: 1280px;
+
+	padding: 8px;
+	margin-top: 50pt;
+}
+
+.aboutSection h2 {
+	margin: 0;
+	padding: 0;
+}
+
+.aboutSection p {
+	text-align: justify;
+
+	padding: 0;
+	margin: 0;
+}
+
 footer {
 	display: flex;
 	flex-direction: column;
@@ -320,11 +349,7 @@ footer {
 	width: 100%;
 	padding: 16px;
 
-	position: absolute;
 	box-sizing: border-box;
-
-	bottom: 0;
-	left: 0;
 
 	filter: drop-shadow(0 0 8px rgba(100, 100, 100, 0.1))
 }

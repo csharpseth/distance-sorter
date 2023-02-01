@@ -1,5 +1,7 @@
+
 import { createContext, useState, useEffect, useRef, useContext } from 'react';
-import { DrawType } from '../ts/enums';
+import { BubbleSort, InsertionSort } from '../helpers/Sorting';
+import { DrawType, SortType } from '../ts/enums';
 import { ThemeContext } from './ThemeContext';
 
 export const DataContext = createContext({} as any)
@@ -41,6 +43,10 @@ export function DataProvider(props: any) {
 	const [useFastDistance, setUseFastDistance] = useState<boolean>(true);
 
     const [placementArea, setPlacementArea] = useState<Area>(new Area(0, 0, 0, 0))
+    const [type, setType] = useState<SortType>(SortType.INSERSTION_SORT)
+
+    var sortType = useRef<SortType>()
+    sortType.current = type
 
     var dists = useRef<number[]>([])
 	dists.current = distances
@@ -67,8 +73,6 @@ export function DataProvider(props: any) {
         
 		const x = (area.current.width / 2)
 		const y = (area.current.height / 2)
-
-        console.log(`Attempting to reset origin. X: ${x} Y: ${y}`)
 
 		setOrigin({x, y})
 	}
@@ -134,31 +138,6 @@ export function DataProvider(props: any) {
 		const yDiff = a.y - b.y
 
 		return (xDiff * xDiff) + (yDiff * yDiff)
-	}
-
-	const InsertionSort = (inDistances: number[]) => {
-		let length = inDistances.length
-
-		let order: number[] = []
-		for (let i = 0; i < inDistances.length; i++) { order.push(i) }
-
-		function Swap(indexA: number, indexB: number) {
-
-			let temp: number = order[indexA]
-
-			order[indexA] = order[indexB]
-			order[indexB] = temp
-		}
-
-		for (let i: number = 1; i <= length; i++) {
-			let j: number = i
-			while (j > 0 && inDistances[order[j-1]] > inDistances[order[j]]) {
-				Swap(j-1, j)
-				j = j - 1
-			}
-		}
-
-		setOrder(order)
 	}
 
 	const GetRelativeDistance = (index: number) => {
@@ -272,6 +251,21 @@ export function DataProvider(props: any) {
         }
     }
 
+    const SetSortType = (type: SortType) => {
+        setType(type)
+    }
+
+    const Sort = ():number[] => {
+        switch (sortType.current) {
+            case SortType.INSERSTION_SORT:
+                return InsertionSort(dists.current)
+            case SortType.BUBBLE_SORT:
+                return BubbleSort(dists.current)
+            default:
+                return []
+        }
+    }
+
     useEffect(() => {
 		window.addEventListener('mousedown', HandleMouseClick)
 		window.addEventListener('touchstart', HandleTouchStart)
@@ -289,11 +283,23 @@ export function DataProvider(props: any) {
 	}, [origin, positions])
 
 	useEffect(() => {
-		InsertionSort(dists.current)
+		setOrder(Sort())
 	}, [origin, positions, distances, linesToOrigin])
 
     return (
-        <DataContext.Provider value={{ positions, origin, distances, order, Initialize, Clear, GetCoordString, GetRelativeDistance, SetDrawType, setUseFastDistance }}>
+        <DataContext.Provider value={{
+            positions,
+            origin,
+            distances,
+            order,
+            Initialize,
+            Clear,
+            GetCoordString,
+            GetRelativeDistance,
+            SetDrawType,
+            SetSortType,
+            setUseFastDistance
+        }}>
             {props.children}
         </DataContext.Provider>
     )

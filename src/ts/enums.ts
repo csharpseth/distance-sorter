@@ -1,10 +1,11 @@
 export enum DrawType {
-    DAISY_CHAIN = 'Normal',
+    DAISY_CHAIN = 'Daisy-Chain',
     TO_ORIGIN = 'Origin'
 }
 
 export enum SortType {
-    INSERSTION_SORT = 'Insertion'
+    INSERSTION_SORT = 'Insertion',
+    BUBBLE_SORT = 'Bubble'
 }
 
 export enum AcknowledgementType {

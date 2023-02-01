@@ -21,6 +21,7 @@ function App() {
 		GetCoordString,
 		GetRelativeDistance,
 		SetDrawType,
+		SetSortType,
 		setUseFastDistance
 	} = useContext(DataContext)
 	
@@ -30,6 +31,7 @@ function App() {
 	}, [placementArea])
 
 	return (
+		<>
 		<div className="App" id={darkMode ? 'darkBackground':''}>
 			
 			<HeaderComponent />
@@ -54,8 +56,8 @@ function App() {
 						<b>DISCLAIMER:</b> Some features may not work as intended on mobile.
 				</span>:''}
 			<div
-				className='FadeIn'
-				id='placementArea'
+				className='placementArea FadeIn'
+				id={darkMode ? 'placementAreaDark':''}
 				ref={placementArea}
 			>
 				<div className='interactionRegion' >
@@ -111,7 +113,7 @@ function App() {
 				title='Sorting Method'
 				options={Object.values(SortType)}
 				onChange={(val: string) => {
-					
+					SetSortType(val)
 				}} />
 				<DropDownMenu
 				title='Use Fast Distance'
@@ -121,9 +123,16 @@ function App() {
 				}} />
 			</div>
 
+			<div className="aboutSection" id={darkMode ? 'darkModeFont':''}>
+			<h2>About</h2>
+			<p>
+				Welcome to my demonstration of different sorting algorithm implementations. You can choose between various sorting algorithms to visualize the closest points to a specified origin. You simply plot as many points as you want, then select the sorting algorithm that works best for you to quickly find and visualize the nearest points. This site offers a convenient way for you to learn and understand how different sorting algorithms work in finding the closest points to an origin.
+			</p>
+			</div>
 
-			<FooterComponent />
 		</div>
+		<FooterComponent />
+		</>
 	);
 }
 

@@ -166,8 +166,6 @@
     border: 1px solid var(--fieldBorderColor);
     border-radius: 4px;
 
-    transition: 200ms;
-
     z-index: inherit;
 }
 
@@ -206,8 +204,6 @@
 	pointer-events: none;
 
     color: var(--fieldBorderColor);
-
-    transition: 200ms;
 }
 
 .dropDownIconOpen {
@@ -241,8 +237,6 @@
     scrollbar-width: none;
 
     opacity: 0;
-
-    transition: 200ms;
 }
 
 #darkDropDownIcon {
