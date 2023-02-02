@@ -6,15 +6,16 @@ A basic web page where you can plot positions then calculate and sort the positi
 
 <img src="https://github.com/csharpseth/distance-sorter/blob/main/media/plot.jpg" />
 
-### Choose From Multiple Sorting Methods
+### Choose From Multiple Sorting Methods and Get Descriptions of Each
 
-<img src="https://github.com/csharpseth/distance-sorter/blob/main/media/sorting.jpg" />
-
-### Get Descriptive Explanations of Each Sorting Method
-
-<img src="https://github.com/csharpseth/distance-sorter/blob/main/media/description.jpg" />
+<p float="left">
+<img src="https://github.com/csharpseth/distance-sorter/blob/main/media/sorting.jpg" width="40%" />
+<img src="https://github.com/csharpseth/distance-sorter/blob/main/media/description.jpg" width="40%" />
+</p>
 
 ### Change The View w/ Light and Dark options
 
-<img src="https://github.com/csharpseth/distance-sorter/blob/main/media/lightmode.jpg" />
-<img src="https://github.com/csharpseth/distance-sorter/blob/main/media/darkmode.jpg" />
+<p float="left">
+<img src="https://github.com/csharpseth/distance-sorter/blob/main/media/lightmode.jpg" width="40%" />
+<img src="https://github.com/csharpseth/distance-sorter/blob/main/media/darkmode.jpg" width="40%" />
+</p>
